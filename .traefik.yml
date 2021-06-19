@@ -1,11 +1,13 @@
-displayName: Demo Plugin
+displayName: i18n rewrite Plugin
 type: middleware
 
-import: github.com/traefik/plugindemo
+import: github.com/WLun001/i18nrewrite
 
-summary: '[Demo] Add Request Header'
+summary: 'Internationalization (i18n) rewrites, based on Accept-Language request header'
 
 testData:
   Headers:
-    X-Demo: test
-    X-URL: '{{URL}}'
+    langCodes: ['zh', 'en'] # required
+    langCodeMatchedHeader: X-Matched-Lang # optional
+    langCodeMatchedConfidence: X-Matched-Lang-Confidence # optional
+    defaultLangRewrite: false # optional
