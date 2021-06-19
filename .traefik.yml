@@ -6,8 +6,7 @@ import: github.com/WLun001/i18nrewrite
 summary: 'Internationalization (i18n) rewrites, based on Accept-Language request header'
 
 testData:
-  Headers:
-    langCodes: ['zh', 'en'] # required
-    langCodeMatchedHeader: X-Matched-Lang # optional
-    langCodeMatchedConfidence: X-Matched-Lang-Confidence # optional
-    defaultLangRewrite: false # optional
+  langCodes: [ 'zh', 'en' ] # required
+  langCodeMatchedHeader: X-Matched-Lang # optional
+  langCodeMatchedConfidence: X-Matched-Lang-Confidence # optional
+  defaultLangRewrite: false # optional
