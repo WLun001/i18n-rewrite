@@ -1,3 +1,4 @@
+// Package i18nrewrite middleware plugin
 package i18nrewrite
 
 import (
@@ -27,6 +28,7 @@ func CreateConfig() *Config {
 	}
 }
 
+// I18nRewrite plugin.
 type I18nRewrite struct {
 	next               http.Handler
 	matcher            language.Matcher
@@ -70,6 +72,7 @@ func (i *I18nRewrite) ServeHTTP(rw http.ResponseWriter, req *http.Request) {
 		} else if lang == i.langTags[0] && i.defaultLangRewrite {
 			req.URL.Path = fmt.Sprintf("%s/%s", req.URL.Path, strings.ToLower(lang.String()))
 		}
+
 		req.Header.Set(i.langCodeHeader, lang.String())
 		req.Header.Set(i.langCodeConfidence, confidence.String())
 	}

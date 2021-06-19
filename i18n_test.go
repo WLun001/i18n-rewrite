@@ -2,11 +2,13 @@ package i18nrewrite_test
 
 import (
 	"context"
-	"github.com/WLun001/i18nrewrite"
 	"net/http"
 	"net/http/httptest"
 	"testing"
+
+	"github.com/WLun001/i18nrewrite"
 )
+
 const headerAcceptLanguage = "Accept-Language"
 
 func TestDefaultConfigEn(t *testing.T) {
@@ -27,6 +29,7 @@ func TestDefaultConfigEn(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	req.Header.Set(headerAcceptLanguage, "en-US,en;q=0.5")
 
 	handler.ServeHTTP(recorder, req)
@@ -54,6 +57,7 @@ func TestDefaultConfigZh(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	req.Header.Set(headerAcceptLanguage, "zh,en-US;q=0.7,en;q=0.3")
 
 	handler.ServeHTTP(recorder, req)
@@ -62,7 +66,6 @@ func TestDefaultConfigZh(t *testing.T) {
 	assertHeader(t, req, cfg.LangCodeMatchedHeader, "zh-CN")
 	assertHeader(t, req, cfg.LangCodeMatchedConfidence, "Exact")
 }
-
 
 func TestSkipDefaultLang(t *testing.T) {
 	cfg := i18nrewrite.CreateConfig()
@@ -82,6 +85,7 @@ func TestSkipDefaultLang(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
+
 	req.Header.Set(headerAcceptLanguage, "zh,en-US;q=0.7,en;q=0.3")
 
 	handler.ServeHTTP(recorder, req)
