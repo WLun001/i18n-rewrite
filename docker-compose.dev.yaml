@@ -5,16 +5,13 @@ services:
   # Traefik proxy
   #------------------------------------------------------------------------------
   traefik:
-    image: "traefik:v2.4"
-    container_name: "traefik"
+    image: "traefik:v2.5.3"
     command:
       - "--api.dashboard=true"
       - "--providers.docker=true"
       - "--providers.docker.exposedbydefault=false"
       - "--entrypoints.web.address=:80"
-      - "--pilot.token=${TRAEFIK_PILOT_TOKEN}"
-      - "--experimental.devPlugin.goPath=/plugins/go"
-      - "--experimental.devPlugin.moduleName=github.com/WLun001/i18nrewrite"
+      - "--experimental.localPlugins.i18n-rewrite.moduleName=github.com/WLun001/i18nrewrite"
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.dashboard.entrypoints=web"
@@ -24,7 +21,7 @@ services:
       - "80:80"
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock"
-      - "./:/plugins/go/src/github.com/WLun001/i18nrewrite"
+      - "./:/plugins-local/src/github.com/WLun001/i18nrewrite"
 
   #------------------------------------------------------------------------------
   # whoami service
@@ -40,4 +37,4 @@ services:
       - "traefik.http.routers.whoami.rule=Host(`whoami.localhost`)"
       - "traefik.http.routers.whoami.entrypoints=web"
       - "traefik.http.routers.whoami.middlewares=i18nrewrite"
-      - "traefik.http.middlewares.i18nrewrite.plugin.dev.langCodes=['zh', 'en']"
+      - "traefik.http.middlewares.i18nrewrite.plugin.i18n-rewrite.langCodes=zh,en"
